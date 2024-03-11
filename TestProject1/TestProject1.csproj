@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="fonts\Gilroy-Black.ttf" />
+    <None Remove="fonts\Gilroy-Bold.ttf" />
+    <None Remove="fonts\Gilroy-Extrabold.ttf" />
+    <None Remove="fonts\Gilroy-Heavy.ttf" />
+    <None Remove="fonts\Gilroy-Light.ttf" />
+    <None Remove="fonts\Gilroy-Medium.ttf" />
+    <None Remove="fonts\Gilroy-Regular.ttf" />
+    <None Remove="fonts\Gilroy-Semibold.ttf" />
+    <None Remove="fonts\Gilroy-UltraLight.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MySql.Data" Version="8.3.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="fonts\Gilroy-Black.ttf" />
+    <Resource Include="fonts\Gilroy-Bold.ttf" />
+    <Resource Include="fonts\Gilroy-Extrabold.ttf" />
+    <Resource Include="fonts\Gilroy-Heavy.ttf" />
+    <Resource Include="fonts\Gilroy-Light.ttf" />
+    <Resource Include="fonts\Gilroy-Medium.ttf" />
+    <Resource Include="fonts\Gilroy-Regular.ttf" />
+    <Resource Include="fonts\Gilroy-Semibold.ttf" />
+    <Resource Include="fonts\Gilroy-UltraLight.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

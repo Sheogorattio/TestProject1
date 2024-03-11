@@ -1,0 +1,171 @@
+﻿<Window x:Class="TestProject1.EfCrudWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestProject1"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Closing="Window_Closing"
+        WindowStartupLocation="CenterScreen"
+        Title="EfCrudWindow" Height="700" Width="1225">
+    <Window.Resources>
+        <Style x:Key="EfListView" TargetType="ListView">
+            <Setter Property="Foreground" Value="#505d6e"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontFamily" Value="fonts/#Gilroy Medium"/>
+        </Style>
+
+        <Style x:Key="EfLabel" TargetType="Label">
+            <Setter Property="Foreground" Value="#505d6e"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontFamily" Value="fonts/#Gilroy Medium"/>
+        </Style>
+
+        <Style x:Key="EfQueryButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="OperationButtonBorder" Padding="15 10" CornerRadius="13" Background="#68d884" TextBlock.FontFamily="fonts/#Gilroy Medium" TextBlock.FontSize="15" TextBlock.Foreground="White" Cursor="Hand">
+                            <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Rectangle Name="OperationButtonInside" Visibility="Hidden"/>
+                                <ContentPresenter RecognizesAccessKey="True" Margin="{TemplateBinding Padding}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="OperationButtonBorder" Property="Background" Value="#86e183"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="OperationButtonBorder" Property="Background" Value="#a5ec81"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="EfQueryResultTextBox" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border CornerRadius="7" Background="White">
+                            <Grid>
+                                <Rectangle StrokeThickness="1"/>
+                                <TextBox Margin="1" Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Text, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Background="Transparent" Padding="10" Foreground="#505d6e" FontFamily="fonts/#Gilroy Medium" FontSize="13" x:Name="InputBox" VerticalScrollBarVisibility="Auto"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical">
+            <DockPanel>
+                <Button x:Name="AddDepartmentButton" DockPanel.Dock="Right" Padding="7 3" Content="+" Cursor="Hand" Click="AddDepartmentButton_Click"/>
+                <Button x:Name="AllDepartmentsButton" DockPanel.Dock="Left" Padding="7 3" Content="All" Cursor="Hand" Click="AllDepartmentsButton_Click"/>
+                <Label Style="{StaticResource EfLabel}" HorizontalAlignment="Center" Content="Відділи"/>
+            </DockPanel>
+            <ListView x:Name="DepartmentsListView" Style="{StaticResource EfListView}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="   Name   " DisplayMemberBinding="{Binding Path=Name}"/>
+                        <GridViewColumn Header="   InternationalName   " DisplayMemberBinding="{Binding Path=InternationalName}"/>
+                        <GridViewColumn Header="   DeleteDt   " DisplayMemberBinding="{Binding Path=DeleteDt}"/>
+                        <GridViewColumn Header="   Id   " DisplayMemberBinding="{Binding Path=Id}"/>
+
+
+                    </GridView>
+                </ListView.View>
+                <ListView.Resources>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
+                    </Style>
+                </ListView.Resources>
+            </ListView>
+        </StackPanel>
+
+
+        <StackPanel Orientation="Vertical" Grid.Row="2">
+            <DockPanel>
+                <Button x:Name="AddManagerButton" DockPanel.Dock="Right" Padding="7 3" Content="+" Cursor="Hand" Click="AddManagerButton_Click"/>
+                <Button x:Name="AllManagersButton" DockPanel.Dock="Left" Padding="7 3" Content="All" Cursor="Hand" Click="AllManagersButton_Click"/>
+                <Label Style="{StaticResource EfLabel}" HorizontalAlignment="Center" Content="Співробітники"/>
+            </DockPanel>
+            <ListView x:Name="ManagersListView" Style="{StaticResource EfListView}" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="200">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="   Surname   " DisplayMemberBinding="{Binding Path=Surname}"/>
+                        <GridViewColumn Header="   Name   " DisplayMemberBinding="{Binding Path=Name}"/>
+                        <GridViewColumn Header="   Secname   " DisplayMemberBinding="{Binding Path=Secname}"/>
+                        <GridViewColumn Header="   DeleteDt   " DisplayMemberBinding="{Binding Path=DeleteDt}"/>
+                        <GridViewColumn Header="   Id   " DisplayMemberBinding="{Binding Path=Id}"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.Resources>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick_1"/>
+                    </Style>
+                </ListView.Resources>
+            </ListView>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <DockPanel>
+                <Button x:Name="AddProductButton" DockPanel.Dock="Right" Padding="7 3" Content="+" Cursor="Hand" Click="AddProductButton_Click"/>
+                <Button x:Name="AllProductButton" DockPanel.Dock="Left" Padding="7 3" Content="All" Cursor="Hand" Click="AllProductButton_Click"/>
+                <Label Style="{StaticResource EfLabel}" HorizontalAlignment="Center" Content="Продукти"/>
+            </DockPanel>
+            <ListView x:Name="ProductsListView" Style="{StaticResource EfListView}" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="200">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Name}"/>
+                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Path=Price}"/>
+                        <GridViewColumn Header="DeleteDt" DisplayMemberBinding="{Binding Path=DeleteDt}"/>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.Resources>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick_2"/>
+                    </Style>
+                </ListView.Resources>
+            </ListView>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <DockPanel>
+                <Button x:Name="AddSaleButton" DockPanel.Dock="Right" Padding="7 3" Content="+" Cursor="Hand" Click="AddSaleButton_Click"/>
+                <Button x:Name="AllSaleButton" DockPanel.Dock="Left" Padding="7 3" Content="All" Cursor="Hand" Click="AllSaleButton_Click"/>
+                <Label Style="{StaticResource EfLabel}" HorizontalAlignment="Center" Content="Продукти"/>
+            </DockPanel>
+            <ListView x:Name="SalesListView" Style="{StaticResource EfListView}" ScrollViewer.VerticalScrollBarVisibility="Visible" MaxHeight="200">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Path=Product.Name}"/>
+                        <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Path=Quantity}"/>
+                        <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Path=Product.Price}"/>
+                        <GridViewColumn Header="Manager" DisplayMemberBinding="{Binding Path=Manager.Name}"/>
+                        <GridViewColumn Header="DeleteDt" DisplayMemberBinding="{Binding Path=DeleteDt}"/>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Path=Id}"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.Resources>
+                    <Style TargetType="ListViewItem">
+                        <EventSetter Event="MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick_3"/>
+                    </Style>
+                </ListView.Resources>
+            </ListView>
+        </StackPanel>
+    </Grid>
+</Window>

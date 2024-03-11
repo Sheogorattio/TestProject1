@@ -1,0 +1,99 @@
+﻿<Window x:Class="TestProject1.IntroWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestProject1"
+        mc:Ignorable="d"
+        Title="IntroWindow" Height="500" Width="800">
+    <ScrollViewer>
+        <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
+            <Label Content="Вступ. Підключення БД" HorizontalAlignment="Center" FontSize="20" FontWeight="DemiBold"/>
+            <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
+                <Label Content="MS SQL Server"/>
+                <Button x:Name="ConnectMsButton" Margin="7, 0, 0, 0" Padding="5, 0, 5, 0" Content="Connect" Cursor="Hand" Click="ConnectMsButton_Click"/>
+                <Button x:Name="DisconnectMsButton" Margin="7, 0, 0, 0" Padding="5, 0, 5, 0" Content="Disconnect" IsEnabled="False" Cursor="Hand" Click="DisconnectMsButton_Click"/>
+                <Label x:Name="MsConnectionStatusLabel" Margin="14, 0, 0, 0" Content="Disconnected"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
+                <Label Content="MySQL / MariaDB"/>
+                <Button x:Name="ConnectMyButton" Margin="7, 0, 0, 0" Padding="5, 0, 5, 0" Content="Connect" Cursor="Hand" Click="ConnectMyButton_Click"/>
+                <Button x:Name="DisconnectMyButton" Margin="7, 0, 0, 0" Padding="5, 0, 5, 0" Content="Disconnect" IsEnabled="False" Cursor="Hand" Click="DisconnectMyButton_Click"/>
+                <Label x:Name="MyConnectionStatusLabel" Margin="14, 0, 0, 0" Content="Disconnected"/>
+            </StackPanel>
+
+
+            <Label Content="Виконання запитів" HorizontalAlignment="Center" Margin="0, 15, 0, 0" FontSize="20" FontWeight="DemiBold"/>
+            <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
+                <Label Content="MS SQL Server"/>
+                <Button x:Name="CreateMsButton" Margin="7, 0, 0, 0" Padding="5, 0, 5, 0" Content="Create table" Cursor="Hand" Click="CreateMsButton_Click"/>
+                <Button x:Name="DropMsButton" Margin="7, 0, 0, 0" Padding="5, 0, 5, 0" Content="Drop table" Cursor="Hand" Click="DropMsButton_Click"/>
+                <Button x:Name="AlterMsButton" Margin="7, 0, 0, 0" Padding="5, 0, 5, 0" Content="Alter table" Cursor="Hand" Click="AlterMsButton_Click"/>
+                <Label x:Name="MsTableStatusLabel" Margin="14, 0, 0, 0" Content="..."/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
+                <Label Content="MySQL / MariaDB"/>
+                <Button x:Name="CreateMyButton" Margin="7, 0, 0, 0" Padding="5, 0, 5, 0" Content="Create table" Cursor="Hand" Click="CreateMyButton_Click"/>
+                <Button x:Name="DropMyButton" Margin="7, 0, 0, 0" Padding="5, 0, 5, 0" Content="Drop table" Cursor="Hand" Click="DropMyButton_Click"/>
+                <Button x:Name="AlterMyButton" Margin="7, 0, 0, 0" Padding="5, 0, 5, 0" Content="Alter table" Cursor="Hand" Click="AlterMyButton_Click"/>
+                <Label x:Name="MyTableStatusLabel" Margin="14, 0, 0, 0" Content="..."/>
+            </StackPanel>
+
+            <StackPanel Margin="0, 20, 0, 0">
+                <StackPanel Orientation="Horizontal" Margin="0, 5">
+                    <Label Content="Name:" Width="70"/>
+                    <TextBox x:Name="UserNameTextBox" Height="25" Width="150" TextWrapping="NoWrap" VerticalContentAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0, 5">
+                    <Label Content="Login:" Width="70"/>
+                    <TextBox x:Name="UserLoginTextBox" Height="25" Width="150" TextWrapping="NoWrap" VerticalContentAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0, 5">
+                    <Label Content="Password:" Width="70"/>
+                    <PasswordBox x:Name="UserPasswordTextBox" Height="25" Width="150" VerticalContentAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0, 5">
+                    <Label Content="Birthdate:" Width="70"/>
+                    <DatePicker x:Name="UserBirthdateDatePicker" Height="25" Width="150" VerticalContentAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="5, 7">
+                    <Button 
+                    x:Name="InsertMyButton"
+                    Content="Add user (Ms)"
+                    Padding="5, 0, 5, 0"
+                    Cursor="Hand"
+                    Click="InsertMsButton_Click"/>
+                    <Button 
+                    x:Name="InsertMsButton"
+                    Content="Add user (My)"
+                    Margin="7, 0, 0, 0"
+                    Padding="5, 0, 5, 0"
+                    Cursor="Hand"
+                    Click="InsertMyButton_Click"/>
+                    <Label 
+                    x:Name="InsertStatusLabel"
+                    Margin="14, 0, 0, 0"
+                    Content="..."/>
+                </StackPanel>
+            </StackPanel>
+
+
+            <Grid Margin="0, 15, 0, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0">
+                    <Button x:Name="SelectMsButton" Margin="20" Content="Показати дані (MS SQL)" Cursor="Hand" Click="SelectMsButton_Click"/>
+                    <TextBlock x:Name="SelectMsTextBlock" Margin="20, 0, 20, 0" Height="150"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1">
+                    <Button x:Name="SelectMyButton" Margin="20" Content="Показати дані (MySQL)" Cursor="Hand" Click="SelectMyButton_Click"/>
+                    <TextBlock x:Name="SelectMyTextBlock" Margin="20, 0, 20, 0" Height="150"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Window>
