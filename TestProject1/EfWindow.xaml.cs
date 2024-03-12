@@ -219,11 +219,13 @@ namespace TestProject1
         {
             ResultTextBox.Text = "";
 
-            foreach (var str in 
+            foreach (var (str, index) in
                 App.EfDataContext
                     .Managers
                     .Include(manager => manager.SecondaryDepartment)
-                    .Select(manager => $"{manager.Surname}   {(manager.SecondaryDepartment == null ? "-" : manager.SecondaryDepartment.Name)}"))
+                    .ToList()
+                    .Select((manager, index) => ($"{index + 1}. {manager.Surname }   {(manager.SecondaryDepartment == null ? new String("-") : manager.SecondaryDepartment.Name)}"))
+                    .Select((str, index) => (str, index)))
             {
                 ResultTextBox.Text += $"{str}\n";
             }
@@ -264,13 +266,19 @@ namespace TestProject1
 
             ResultTextBox.Text = "";
 
-            foreach (var product in
+            foreach (Product product in
                 App.EfDataContext
                     .Products
-                    .Include(product => product.Sales))
+                    .Include(product => product.Sales).ToList())
             {
                 int checksToday = product.Sales.Where(s =>s.SaleDt.Date == date).Count();
-                ResultTextBox.Text += $"{product.Name} — {checksToday}\n";
+                int productsToday = 0;
+                foreach (var q in product.Sales.Where(s => s.SaleDt.Date == date).Select(s => s.Quantity))
+                {
+                    productsToday+=q;
+                }
+                double Price = productsToday * product.Price;
+                ResultTextBox.Text += $"{product.Name} — {checksToday} - {productsToday} - {Price}\n";
             }
         }
     }
